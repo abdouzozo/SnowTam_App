@@ -1,7 +1,6 @@
 package com.ensim.snowtam_app.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
-import com.ensim.snowtam_app.R;
 
 import android.os.Bundle;
 
