@@ -2,6 +2,7 @@ package com.ensim.snowtam_app.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -139,13 +140,20 @@ public class MainActivity extends AppCompatActivity {
                 if(!EmptyChamps_4)
                     ListAeroports.add(new InfoAeroport(mChampsInput_4.getText().toString()));
 
-              /*
 
-                Intent responseActivity = new Intent(MainActivity.this, ResponseActivity.class);
+
+                /*Intent responseActivity = new Intent(MainActivity.this, SnowtamActivity.class);
                 responseActivity.putExtra("name", Name);
                 responseActivity.putExtra("last_name", LName);
 
                 startActivity(responseActivity);*/
+
+                // Construct an Intent object that targets the SecondActivity
+                Intent intent = new Intent(MainActivity.this, SnowtamActivity.class);
+
+                intent.putExtra("ListAeroports",ListAeroports);
+                // Start the SecondActivity
+                startActivity(intent);
 
             }
         });

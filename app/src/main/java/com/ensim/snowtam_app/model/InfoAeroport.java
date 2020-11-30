@@ -1,6 +1,11 @@
 package com.ensim.snowtam_app.model;
 
-public class InfoAeroport {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class InfoAeroport implements Serializable {
     private String mId;
     private String mName;
     private String mType;
@@ -9,6 +14,14 @@ public class InfoAeroport {
 
     public InfoAeroport(String mId) {
         this.mId = mId;
+    }
+
+    public String getmId() {
+        return mId;
+    }
+
+    public void setmId(String Id) {
+        this.mId = Id;
     }
 
     public String getmName() {
@@ -42,4 +55,18 @@ public class InfoAeroport {
     public void setmCoordLon(String mCoordLon) {
         this.mCoordLon = mCoordLon;
     }
+
+   /* @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mId);
+        dest.writeString(mName);
+        dest.writeString(mType);
+        dest.writeString(mCoordLat);
+        dest.writeString(mCoordLon);
+    }*/
 }

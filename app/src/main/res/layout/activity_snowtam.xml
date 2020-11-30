@@ -7,4 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".controller.SnowtamActivity">
 
+    <TextView
+        android:id="@+id/activity_snowtam_log_txt"
+        android:layout_width="248dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="20dp"
+        android:text="Nothing"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </LinearLayout>
