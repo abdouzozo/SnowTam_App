@@ -1,11 +1,19 @@
 package com.ensim.snowtam_app.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import com.ensim.snowtam_app.R;
+import com.ensim.snowtam_app.fragments.decodeFragment;
+import com.ensim.snowtam_app.fragments.mapFragment;
+import com.ensim.snowtam_app.fragments.snowtameFragment;
 import com.ensim.snowtam_app.model.InfoAeroport;
 import com.ensim.snowtam_app.model.SnowtamAeroport;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -16,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*https://applications.icao.int/dataservices/api/indicators-list?api_key=69ca9a70-27ed-11eb-a05a-a74a9cd8306b
 &state=&airports=LFPG&format=json
@@ -23,15 +32,28 @@ import java.util.ArrayList;
 
 
 public class SnowtamActivity extends AppCompatActivity {
+    private ViewPager pager;
+    private PagerAdapter pagerAdapter;
 
     private ArrayList<InfoAeroport> ListAeroports;
-    private TextView mLog_1;
+    public static String snowtamMes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_snowtam);
-        mLog_1 = (TextView) findViewById(R.id.activity_snowtam_log_txt);
+        List<Fragment> list = new ArrayList<>();
+        list.add(new mapFragment());
+        list.add(new snowtameFragment());
+        list.add(new decodeFragment());
+
+
+
+        pager = findViewById(R.id.pager);
+        pagerAdapter = new SlidePagerAdapter(getSupportFragmentManager(),list);
+
+        pager.setAdapter(pagerAdapter);
 
         ListAeroports = (ArrayList<InfoAeroport>) getIntent().getSerializableExtra("ListAeroports");
         String snowTam = null;
@@ -48,9 +70,14 @@ public class SnowtamActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            mLog_1.setText(ListAeroports.get(i).getmSnowtam().toString());
-            mLog_1.append("\n\n" + ListAeroports.get(i).toString());
+
+            snowtamMes = ListAeroports.get(i).getmSnowtam().toString();
+
         }
+        /*Bundle bundle = new Bundle();
+        bundle.putString("snowtamMes", snowtamMes);
+        snowtameFragment fragsnow = new snowtameFragment();
+        fragsnow.setArguments(bundle);*/
     }
 
     // Elle permet de récupérer le contenu de Json en String
