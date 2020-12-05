@@ -8,9 +8,9 @@ import java.io.Serializable;
 public class InfoAeroport implements Serializable {
     private String mId;
     private String mName;
-    private String mType;
     private String mCoordLat;
     private String mCoordLon;
+    private SnowtamAeroport mSnowtam;
 
     public InfoAeroport(String mId) {
         this.mId = mId;
@@ -32,14 +32,6 @@ public class InfoAeroport implements Serializable {
         this.mName = mName;
     }
 
-    public String getmType() {
-        return mType;
-    }
-
-    public void setmType(String mType) {
-        this.mType = mType;
-    }
-
     public String getmCoordLat() {
         return mCoordLat;
     }
@@ -55,6 +47,26 @@ public class InfoAeroport implements Serializable {
     public void setmCoordLon(String mCoordLon) {
         this.mCoordLon = mCoordLon;
     }
+
+    public SnowtamAeroport getmSnowtam() {
+        return mSnowtam;
+    }
+
+    public void setmSnowtam(SnowtamAeroport mSnowtam) {
+        this.mSnowtam = mSnowtam;
+    }
+
+    @Override
+    public String toString() {
+        return "InfoAeroport{" +
+                "mId='" + mId + '\'' +
+                ", mName='" + mName + '\'' +
+                ", mCoordLat='" + mCoordLat + '\'' +
+                ", mCoordLon='" + mCoordLon + '\'' +
+                '}';
+    }
+
+
 
    /* @Override
     public int describeContents() {

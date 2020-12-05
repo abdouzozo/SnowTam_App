@@ -1,0 +1,18 @@
+[
+  {
+    "countryName": "Norway",
+    "countryCode": "NOR",
+    "airportName": "Flesland",
+    "cityName": "Bergen",
+    "latitude": 60.29361111111111,
+    "longitude": 5.218055555555556,
+    "airportCode": "ENBR",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        5.218055555555556,
+        60.29361111111111
+      ]
+    }
+  }
+]

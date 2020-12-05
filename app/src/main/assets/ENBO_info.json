@@ -1,0 +1,18 @@
+[
+  {
+    "countryName": "Norway",
+    "countryCode": "NOR",
+    "airportName": "Bodo",
+    "cityName": "Bodo",
+    "latitude": 67.26916666666666,
+    "longitude": 14.365277777777777,
+    "airportCode": "ENBO",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        14.365277777777777,
+        67.26916666666666
+      ]
+    }
+  }
+]
