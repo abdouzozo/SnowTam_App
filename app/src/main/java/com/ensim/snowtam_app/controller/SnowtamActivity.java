@@ -1,7 +1,14 @@
 package com.ensim.snowtam_app.controller;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import com.ensim.snowtam_app.R;
+import com.ensim.snowtam_app.fragments.decodeFragment;
+import com.ensim.snowtam_app.fragments.mapFragment;
+import com.ensim.snowtam_app.fragments.snowtameFragment;
 import com.ensim.snowtam_app.model.InfoAeroport;
 import com.ensim.snowtam_app.model.SnowtamAeroport;
 
@@ -19,43 +26,52 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*https://applications.icao.int/dataservices/api/indicators-list?api_key=69ca9a70-27ed-11eb-a05a-a74a9cd8306b
 &state=&airports=LFPG&format=json
  */
 
-
 public class SnowtamActivity extends AppCompatActivity {
-
+    private ViewPager pager;
+    private PagerAdapter pagerAdapter;
     private SnowtamAeroport SnowtamClique = new SnowtamAeroport();
     private TextView mLog_1;
     private Button mMapButton;
+    public static String snowtamMes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_snowtam);
-        mLog_1 = (TextView) findViewById(R.id.activity_snowtam_log_txt);
-        mMapButton= (Button) findViewById(R.id.activity_snowtam_map_btn);
+
+        List<Fragment> list = new ArrayList<>();
+        list.add(new mapFragment());
+        list.add(new snowtameFragment());
+        list.add(new decodeFragment());
+
+        pager = findViewById(R.id.pager);
+        pagerAdapter = new SlidePagerAdapter(getSupportFragmentManager(),list);
+
+        pager.setAdapter(pagerAdapter);
 
         String TextJson;
-
         SnowtamClique.setmId( (String) getIntent().getSerializableExtra("AeroportClique") );
         double[] coord = (double[]) getIntent().getSerializableExtra("CoordClique");
 
         try {
             TextJson = getStringFromFile(SnowtamClique.getmId() + ".json");
             fillSnowTam(TextJson, SnowtamClique);
+            snowtamMes = SnowtamClique.getmSnowtam();
+            snowtamMes = snowtamMes + "\n\nLat : " + coord[0] + "\nLon : " + coord[1];
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
-       /* MonAeroport = (InfoAeroport) getIntent().getSerializableExtra("AeroportClique"); */
-
-
-            mLog_1.setText(SnowtamClique.toString());
-            mLog_1.append("\n\nLat : " + coord[0] + "\nLon : " + coord[1]);
+        /*Bundle bundle = new Bundle();
+        bundle.putString("snowtamMes", snowtamMes);
+        snowtameFragment fragsnow = new snowtameFragment();
+        fragsnow.setArguments(bundle);*/
 
     }
 
