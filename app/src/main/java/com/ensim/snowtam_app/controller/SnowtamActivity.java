@@ -65,16 +65,15 @@ public class SnowtamActivity extends AppCompatActivity {
         aerop_name = findViewById(R.id.Aero_name);
         pager.setAdapter(pagerAdapter);
 
-        String TextJson;
         SnowtamClique.setmId( (String) getIntent().getSerializableExtra("AeroportClique") );
         coord = (double[]) getIntent().getSerializableExtra("CoordClique");
-        nameClique = (String) getIntent().getSerializableExtra("NameClique");
+        SnowtamClique.setmName( (String) getIntent().getSerializableExtra("NameClique"));
         try {
             TextJson = getStringFromFile(SnowtamClique.getmId() + ".json");
             fillSnowTam(TextJson, SnowtamClique);
             snowtamMes = SnowtamClique.getmSnowtam();
             snowtamMes = snowtamMes + "\n\nLat : " + coord[0] + "\nLon : " + coord[1];
-            aerop_name.setText(nameClique);
+            aerop_name.setText(SnowtamClique.getmName());
         } catch (Exception e) {
             e.printStackTrace();
         }
