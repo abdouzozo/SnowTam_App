@@ -86,6 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Intent intent = new Intent(MapsActivity.this, SnowtamActivity.class);
                 intent.putExtra("AeroportClique", (Serializable) AeroportClique.getmId());
                 intent.putExtra("CoordClique", (Serializable) coord);
+                intent.putExtra("NameClique", (Serializable) AeroportClique.getmName());
                 startActivity(intent);
                 return false;
             }

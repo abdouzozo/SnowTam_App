@@ -36,7 +36,8 @@ public class SnowtamActivity extends AppCompatActivity {
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
     private static SnowtamAeroport SnowtamClique = new SnowtamAeroport();
-    private TextView mLog_1;
+    private TextView aerop_name;
+    private String nameClique;
     private Button mMapButton;
     public static String snowtamMes;
     public double[] coord;
@@ -53,18 +54,19 @@ public class SnowtamActivity extends AppCompatActivity {
 
         pager = findViewById(R.id.pager);
         pagerAdapter = new SlidePagerAdapter(getSupportFragmentManager(),list);
-
+        aerop_name = findViewById(R.id.Aero_name);
         pager.setAdapter(pagerAdapter);
 
         String TextJson;
         SnowtamClique.setmId( (String) getIntent().getSerializableExtra("AeroportClique") );
         coord = (double[]) getIntent().getSerializableExtra("CoordClique");
-
+        nameClique = (String) getIntent().getSerializableExtra("NameClique");
         try {
             TextJson = getStringFromFile(SnowtamClique.getmId() + ".json");
             fillSnowTam(TextJson, SnowtamClique);
             snowtamMes = SnowtamClique.getmSnowtam();
             snowtamMes = snowtamMes + "\n\nLat : " + coord[0] + "\nLon : " + coord[1];
+            aerop_name.setText(nameClique);
         } catch (Exception e) {
             e.printStackTrace();
         }
