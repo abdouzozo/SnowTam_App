@@ -35,10 +35,11 @@ import java.util.List;
 public class SnowtamActivity extends AppCompatActivity {
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
-    private SnowtamAeroport SnowtamClique = new SnowtamAeroport();
+    private static SnowtamAeroport SnowtamClique = new SnowtamAeroport();
     private TextView mLog_1;
     private Button mMapButton;
     public static String snowtamMes;
+    public double[] coord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +47,9 @@ public class SnowtamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_snowtam);
 
         List<Fragment> list = new ArrayList<>();
-        list.add(new mapFragment());
         list.add(new snowtameFragment());
         list.add(new decodeFragment());
+        list.add(new mapFragment());
 
         pager = findViewById(R.id.pager);
         pagerAdapter = new SlidePagerAdapter(getSupportFragmentManager(),list);
@@ -57,7 +58,7 @@ public class SnowtamActivity extends AppCompatActivity {
 
         String TextJson;
         SnowtamClique.setmId( (String) getIntent().getSerializableExtra("AeroportClique") );
-        double[] coord = (double[]) getIntent().getSerializableExtra("CoordClique");
+        coord = (double[]) getIntent().getSerializableExtra("CoordClique");
 
         try {
             TextJson = getStringFromFile(SnowtamClique.getmId() + ".json");

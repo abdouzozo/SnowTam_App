@@ -12,13 +12,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/activity_snowtam_map_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:padding="30dp"
-        android:text="Map" />
 
 </LinearLayout>
