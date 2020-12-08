@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(responseActivity);*/
 
                 // Construct an Intent object that targets the SecondActivity
-                Intent intent = new Intent(MainActivity.this, SnowtamActivity.class);
+                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
 
                 intent.putExtra("ListAeroports",ListAeroports);
                 // Start the SecondActivity

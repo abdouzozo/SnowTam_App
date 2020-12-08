@@ -2,9 +2,8 @@ package com.ensim.snowtam_app.model;
 
 public class SnowtamAeroport {
     private String mId;
+    private String mName;
     private String mSnowtam;
-
-
 
     public SnowtamAeroport() {
     }
@@ -17,6 +16,13 @@ public class SnowtamAeroport {
         this.mId = mId;
     }
 
+    public String getmName() {
+        return mName;
+    }
+
+    public void setmName(String mName) {
+        this.mName = mName;
+    }
 
     public String getmSnowtam() {
         return mSnowtam;

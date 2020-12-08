@@ -6,7 +6,10 @@ import com.ensim.snowtam_app.model.InfoAeroport;
 import com.ensim.snowtam_app.model.SnowtamAeroport;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -24,33 +27,45 @@ import java.util.ArrayList;
 
 public class SnowtamActivity extends AppCompatActivity {
 
-    private ArrayList<InfoAeroport> ListAeroports;
+    private SnowtamAeroport SnowtamClique = new SnowtamAeroport();
     private TextView mLog_1;
+    private Button mMapButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_snowtam);
         mLog_1 = (TextView) findViewById(R.id.activity_snowtam_log_txt);
+        mMapButton= (Button) findViewById(R.id.activity_snowtam_map_btn);
 
-        ListAeroports = (ArrayList<InfoAeroport>) getIntent().getSerializableExtra("ListAeroports");
-        String snowTam = null;
         String TextJson;
-        String infoAero = null;
 
-        for(int i=0; i<ListAeroports.size(); i++) {
+        SnowtamClique.setmId( (String) getIntent().getSerializableExtra("AeroportClique") );
+        double[] coord = (double[]) getIntent().getSerializableExtra("CoordClique");
 
-            try {
-                TextJson = getStringFromFile(ListAeroports.get(i).getmId() + ".json");
-                fillSnowTam(TextJson, ListAeroports.get(i));
-                TextJson = getStringFromFile(ListAeroports.get(i).getmId() + "_info.json");
-                fillInfoAero(TextJson, ListAeroports.get(i));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            mLog_1.setText(ListAeroports.get(i).getmSnowtam().toString());
-            mLog_1.append("\n\n" + ListAeroports.get(i).toString());
+        try {
+            TextJson = getStringFromFile(SnowtamClique.getmId() + ".json");
+            fillSnowTam(TextJson, SnowtamClique);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+
+       /* MonAeroport = (InfoAeroport) getIntent().getSerializableExtra("AeroportClique"); */
+
+
+            mLog_1.setText(SnowtamClique.toString());
+            mLog_1.append("\n\nLat : " + coord[0] + "\nLon : " + coord[1]);
+
+    }
+
+
+    public void fillSnowTam(String TextJson, SnowtamAeroport snowtam) throws Exception {
+        JSONArray jsonArray = new JSONArray(TextJson);
+        JSONObject jsonObject = jsonArray.getJSONObject(0);
+
+        snowtam.setmId(jsonObject.getString("id"));
+        snowtam.setmSnowtam(jsonObject.getString("all"));
     }
 
     // Elle permet de récupérer le contenu de Json en String
@@ -61,37 +76,5 @@ public class SnowtamActivity extends AppCompatActivity {
         fin.read(buffer);
         fin.close();
         return new String(buffer,"UTF-8");
-    }
-
-    //Elle permet de récupérer l'élement du all du snowtam.json
-    public String getSnowTam (String TextJson, int id) throws Exception {
-        JSONArray jsonArray = new JSONArray(TextJson);
-        JSONObject jsonObject = jsonArray.getJSONObject(id);
-        return jsonObject.getString("all");
-    }
-
-    public void fillInfoAero(String TextJson, InfoAeroport Aeroport) throws Exception {
-        JSONArray jsonArray = new JSONArray(TextJson);
-        JSONObject jsonObject = jsonArray.getJSONObject(0);
-        Aeroport.setmId(jsonObject.getString("airportCode"));
-        Aeroport.setmName(jsonObject.getString("airportName"));
-        Aeroport.setmCoordLat(jsonObject.getString("latitude"));
-        Aeroport.setmCoordLon(jsonObject.getString("longitude"));
-    }
-
-    public void fillSnowTam(String TextJson, InfoAeroport Aeroport) throws Exception {
-        JSONArray jsonArray = new JSONArray(TextJson);
-        JSONObject jsonObject = jsonArray.getJSONObject(0);
-        SnowtamAeroport snowtam = new SnowtamAeroport();
-        snowtam.setmId(jsonObject.getString("id"));
-        snowtam.setmSnowtam(jsonObject.getString("all"));
-        Aeroport.setmSnowtam(snowtam);
-    }
-
-    //Elle permet de récupérer l'élement latitude du snow.json
-    public String getInfoAero (String TextJson, int id) throws Exception {
-        JSONArray jsonArray = new JSONArray(TextJson);
-        JSONObject jsonObject = jsonArray.getJSONObject(id);
-        return jsonObject.getString("latitude");
     }
 }
