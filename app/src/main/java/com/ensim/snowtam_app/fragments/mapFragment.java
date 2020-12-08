@@ -10,6 +10,8 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.ensim.snowtam_app.R;
 import com.ensim.snowtam_app.controller.MainActivity;
@@ -28,33 +30,35 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class mapFragment extends Fragment implements OnMapReadyCallback {
+public class mapFragment extends Fragment{
 
-    double[] coord;
+    LatLng latLng;
     private GoogleMap mMap;
     SnowtamAeroport SnowtamClique;
-
-
+    private SupportMapFragment mapFragment;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup)inflater
+        View rootView = (ViewGroup)inflater
                 .inflate(R.layout.map_page,container, false);
+
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                getChildFragmentManager().findFragmentById(R.id.mapwhere);
+
+        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                SnowtamClique = SnowtamActivity.SnowtamClique;
+                LatLng latlng = SnowtamActivity.latlng;
+                Marker marker = googleMap.addMarker(new MarkerOptions().position(latlng).title(SnowtamClique.getmName()));
+                googleMap.setMapType(4);
+                googleMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 14));
+            }
+        });
         return rootView;
-    }
-
-
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        LatLng latLon;
-        latLon = new LatLng(coord[0], coord[1]);
-            Marker marker = mMap.addMarker(new MarkerOptions().position(latLon).title(SnowtamClique.getmId()));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLon));
-
     }
 }

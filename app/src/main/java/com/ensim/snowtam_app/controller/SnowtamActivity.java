@@ -11,6 +11,7 @@ import com.ensim.snowtam_app.fragments.mapFragment;
 import com.ensim.snowtam_app.fragments.snowtameFragment;
 import com.ensim.snowtam_app.model.InfoAeroport;
 import com.ensim.snowtam_app.model.SnowtamAeroport;
+import com.google.android.gms.maps.model.LatLng;
 
 
 import android.content.Intent;
@@ -35,17 +36,24 @@ import java.util.List;
 public class SnowtamActivity extends AppCompatActivity {
     private ViewPager pager;
     private PagerAdapter pagerAdapter;
-    private static SnowtamAeroport SnowtamClique = new SnowtamAeroport();
-    private TextView aerop_name;
+    public static SnowtamAeroport SnowtamClique = new SnowtamAeroport();
     private String nameClique;
+    private TextView aerop_name;
     private Button mMapButton;
     public static String snowtamMes;
-    public double[] coord;
+    private double[] coord;
+    public static LatLng latlng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_snowtam);
+
+        String TextJson;
+        SnowtamClique.setmId( (String) getIntent().getSerializableExtra("AeroportClique") );
+        coord = getIntent().getDoubleArrayExtra("CoordClique");
+        SnowtamClique.setmName( (String) getIntent().getSerializableExtra("NameClique") );
+        latlng = new LatLng(coord[0], coord[1]);
 
         List<Fragment> list = new ArrayList<>();
         list.add(new snowtameFragment());
@@ -71,10 +79,6 @@ public class SnowtamActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        /*Bundle bundle = new Bundle();
-        bundle.putString("snowtamMes", snowtamMes);
-        snowtameFragment fragsnow = new snowtameFragment();
-        fragsnow.setArguments(bundle);*/
 
     }
 

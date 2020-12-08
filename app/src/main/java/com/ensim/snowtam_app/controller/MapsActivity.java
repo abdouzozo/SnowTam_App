@@ -28,6 +28,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<InfoAeroport> ListAeroports;
     private HashMap<String, InfoAeroport> mMarkerMap = new HashMap<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,14 +66,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng coord;
+        //LatLng coord;
 
         for(int i=0; i<ListAeroports.size(); i++){
-            coord = new LatLng(Double.valueOf(ListAeroports.get(i).getmCoordLat())
+            LatLng latlng = new LatLng(Double.valueOf(ListAeroports.get(i).getmCoordLat())
                     ,Double.valueOf(ListAeroports.get(i).getmCoordLon()));
-            Marker marker = mMap.addMarker(new MarkerOptions().position(coord).title(ListAeroports.get(i).getmName()));
+            Marker marker = mMap.addMarker(new MarkerOptions().position(latlng).title(ListAeroports.get(i).getmName()));
             mMarkerMap.put(marker.getId(),ListAeroports.get(i));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(coord));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latlng));
         }
 
 
@@ -85,8 +86,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 Intent intent = new Intent(MapsActivity.this, SnowtamActivity.class);
                 intent.putExtra("AeroportClique", (Serializable) AeroportClique.getmId());
-                intent.putExtra("CoordClique", (Serializable) coord);
                 intent.putExtra("NameClique", (Serializable) AeroportClique.getmName());
+                intent.putExtra("CoordClique", coord);
                 startActivity(intent);
                 return false;
             }
