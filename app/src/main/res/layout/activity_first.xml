@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controller.FirstActivity"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:id="@+id/first_line"
+            android:layout_width="20dp"
+            android:layout_height="40dp"
+            android:background="@drawable/white_line"
+            android:layout_centerHorizontal="true"/>
+        <View
+            android:id="@+id/second_line"
+            android:layout_width="20dp"
+            android:layout_height="90dp"
+            android:background="@drawable/red_line"
+            android:layout_toRightOf="@+id/first_line"
+            android:layout_marginLeft="8dp"/>
+        <View
+            android:id="@+id/third_line"
+            android:layout_width="20dp"
+            android:layout_height="210dp"
+            android:background="@drawable/white_line"
+            android:layout_toRightOf="@+id/second_line"
+            android:layout_marginLeft="8dp"/>
+        <View
+            android:id="@+id/fourth_line"
+            android:layout_width="20dp"
+            android:layout_height="150dp"
+            android:background="@drawable/green_line"
+            android:layout_toRightOf="@+id/third_line"
+            android:layout_marginLeft="8dp"/>
+        <View
+            android:id="@+id/fifth_line"
+            android:layout_width="20dp"
+            android:layout_height="190dp"
+            android:background="@drawable/red_line"
+            android:layout_toRightOf="@+id/fourth_line"
+            android:layout_marginLeft="8dp"/>
+        <View
+            android:id="@+id/sixth_line"
+            android:layout_width="20dp"
+            android:layout_height="110dp"
+            android:background="@drawable/white_line"
+            android:layout_toRightOf="@+id/fifth_line"
+            android:layout_marginLeft="8dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/snow"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/flocon"
+            android:layout_marginTop="30dp"
+            />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+
+            <TextView
+                android:id="@+id/nameApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="60dp"
+                android:fontFamily="@font/baloo"
+                android:text="SNOWTAM"
+                android:textColor="@color/whiteBlue"
+                android:textSize="50sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
