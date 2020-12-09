@@ -3,5 +3,5 @@
     <item android:state_focused="true"
         android:drawable="@drawable/ic_airplane_focused"/>
     <item android:state_focused="false"
-        android:drawable="@drawable/ic_airplane"/>
+        android:drawable="@drawable/ic_launcher_foreground"/>
 </selector>
